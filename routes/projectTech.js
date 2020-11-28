@@ -1,19 +1,19 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project');
+const StackTech = require('../models/StackTech');
 
 /**
  * @swagger
- * /api/project:
+ * /api/projectTech:
  *  get:
- *    description: Use to request all project
+ *    description: Use to request all project techlogoies
  *    responses:
  *      '200':
  *        description: A successful response
  */
 router.get('/', (req, res) => {
-    Project.find({}).populate('technologies').then((response)=>{
+    StackTech.find({}).populate('technology').populate('version').then((response)=>{
        res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Project.findOne({  _id: req.params.id }).populate('technologies').then((response)=>{
+    StackTech.findOne({  _id: req.params.id }).populate('technology').populate('version').then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    Project.create(req.body).then((response)=>{
+    StackTech.create(req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -37,7 +37,15 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    Project.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+    StackTech.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+    StackTech.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);

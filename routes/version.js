@@ -1,19 +1,19 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project');
+const Version = require('../models/Version');
 
 /**
  * @swagger
- * /api/project:
+ * /api/version:
  *  get:
- *    description: Use to request all project
+ *    description: Use to request all version
  *    responses:
  *      '200':
  *        description: A successful response
  */
 router.get('/', (req, res) => {
-    Project.find({}).populate('technologies').then((response)=>{
+    Version.find({}).populate('technology').then((response)=>{
        res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Project.findOne({  _id: req.params.id }).populate('technologies').then((response)=>{
+    Version.findOne({  _id: req.params.id }).populate('technology').then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    Project.create(req.body).then((response)=>{
+    Version.create(req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -37,7 +37,15 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    Project.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+    Version.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+    Version.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);

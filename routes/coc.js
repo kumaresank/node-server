@@ -1,27 +1,46 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const Department = require('../models/Department');
+const CoC = require('../models/CoC');
 
 /**
  * @swagger
- * /api/department:
+ * /api/coc:
  *  get:
- *    description: Use to request all department
+ *    description: Use to request all coc
  *    responses:
  *      '200':
  *        description: A successful response
  */
 router.get('/', (req, res) => {
-    Department.find({}).then((response)=>{
+    CoC.find({}).populate('department').then((response)=>{
        res.json(response);
     }).catch((error)=>{
         res.send(error);
     });    
 });
 
+/**
+ * @swagger
+ * /api/coc:
+ *   post:
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: name
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: department
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Category
+*/
 router.get('/:id', (req, res) => {
-    Department.findOne({  _id: req.params.id }).then((response)=>{
+    CoC.findOne({  _id: req.params.id }).populate('department').then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -29,7 +48,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    Department.create(req.body).then((response)=>{
+    CoC.create(req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -37,7 +56,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    Department.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+    CoC.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -45,7 +64,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Department.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
+    CoC.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);

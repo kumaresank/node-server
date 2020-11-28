@@ -1,19 +1,19 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project');
+const Technology = require('../models/Technology');
 
 /**
  * @swagger
- * /api/project:
+ * /api/technology:
  *  get:
- *    description: Use to request all project
+ *    description: Use to request all technology
  *    responses:
  *      '200':
  *        description: A successful response
  */
 router.get('/', (req, res) => {
-    Project.find({}).populate('technologies').then((response)=>{
+    Technology.find({}).populate('category').then((response)=>{
        res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Project.findOne({  _id: req.params.id }).populate('technologies').then((response)=>{
+    Technology.findOne({  _id: req.params.id }).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    Project.create(req.body).then((response)=>{
+    Technology.create(req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    Project.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+    Technology.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
