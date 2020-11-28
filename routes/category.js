@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
  *    description: Use to request a category
  *    parameters:
  *       - name: id
- *         description: Particular Category Object's ID (Automatically assigned by MongoDB)
+ *         description: Particular Category Object's ID
  *         in: path
  *         required: true
  *         type: string
@@ -70,11 +70,12 @@ router.post('/', (req, res) => {
  * @swagger
  * /api/category/{id}:
  *   put:
+ *     description: Use to update a category
  *     produces:
  *       - application/json
  *     parameters:
  *       - name: id
- *         description: Particular Category Object's ID (Automatically assigned by MongoDB)
+ *         description: Particular Category Object's ID
  *         in: path	 
  *         required: true
  *         type: string
@@ -88,6 +89,29 @@ router.post('/', (req, res) => {
 */
 router.put('/:id', (req, res) => {
     Category.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });
+});
+
+/**
+ * @swagger
+ * /api/category/{id}:
+ *  delete:
+ *    description: Use to delete a category
+ *    parameters:
+ *       - name: id
+ *         description: Particular Category Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.delete('/:id', (req, res) => {
+    Category.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);

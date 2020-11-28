@@ -20,6 +20,21 @@ router.get('/', (req, res) => {
     });    
 });
 
+/**
+ * @swagger
+ * /api/team/{id}:
+ *  get:
+ *    description: Use to request a team
+ *    parameters:
+ *       - name: id
+ *         description: Particular team Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.get('/:id', (req, res) => {
     Team.findOne({  _id: req.params.id }).populate('coc').then((response)=>{
         res.json(response);
@@ -28,6 +43,34 @@ router.get('/:id', (req, res) => {
     });    
 });
 
+/**
+ * @swagger
+ * /api/team:
+ *   post:
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: name
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: members
+ *         description: Array of user short ID
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *       - name: coc
+ *         description: Particular CoC Object's ID
+ *         in: formData
+ *         required: true
+ *         type: string 
+ *     responses:
+ *       200:
+ *         description: technology
+*/
 router.post('/', (req, res) => {
     Team.create(req.body).then((response)=>{
         res.json(response);
@@ -36,6 +79,40 @@ router.post('/', (req, res) => {
     });    
 });
 
+/**
+ * @swagger
+ * /api/team/{id}:
+ *   put:
+ *     description: Use to update a team
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: Particular team Object's ID
+ *         in: path	 
+ *         required: true
+ *         type: string
+ *       - name: name
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: members
+ *         description: Array of user short ID
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *       - name: coc
+ *         description: Particular CoC Object's ID
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: A successful response
+*/
 router.put('/:id', (req, res) => {
     Team.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
@@ -44,6 +121,21 @@ router.put('/:id', (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /api/team/{id}:
+ *  delete:
+ *    description: Use to delete a team
+ *    parameters:
+ *       - name: id
+ *         description: Particular team Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.delete('/:id', (req, res) => {
     Team.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);

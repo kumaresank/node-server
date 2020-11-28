@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const StackTech = require('./StackTech').schema;
 const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
@@ -7,7 +8,8 @@ const projectSchema = new Schema({
     icon: String,
     startDate: String,
     team: { type: Schema.Types.ObjectId, ref: 'Teams' },
-    technologies: [{ type: Schema.Types.ObjectId, ref: 'StackTech' }]
+    techs: [StackTech]
+    // technologies: [{ type: Schema.Types.ObjectId, ref: 'StackTech' }]
 }, {
     timestamps: true
 });

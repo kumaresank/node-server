@@ -22,6 +22,29 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
+ * /api/coc/{id}:
+ *  get:
+ *    description: Use to request a coc
+ *    parameters:
+ *       - name: id
+ *         description: Particular coc Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get('/:id', (req, res) => {
+    CoC.findOne({  _id: req.params.id }).populate('department').then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });    
+});
+
+/**
+ * @swagger
  * /api/coc:
  *   post:
  *     produces:
@@ -32,6 +55,7 @@ router.get('/', (req, res) => {
  *         required: true
  *         type: string
  *       - name: department
+ *         description: Particular Department Object's ID
  *         in: formData
  *         required: true
  *         type: string
@@ -39,14 +63,6 @@ router.get('/', (req, res) => {
  *       200:
  *         description: Category
 */
-router.get('/:id', (req, res) => {
-    CoC.findOne({  _id: req.params.id }).populate('department').then((response)=>{
-        res.json(response);
-    }).catch((error)=>{
-        res.send(error);
-    });    
-});
-
 router.post('/', (req, res) => {
     CoC.create(req.body).then((response)=>{
         res.json(response);
@@ -55,6 +71,30 @@ router.post('/', (req, res) => {
     });    
 });
 
+/**
+ * @swagger
+ * /api/coc/{id}:
+ *   put:
+ *     description: Use to update a coc
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: Particular coc Object's ID
+ *         in: path	 
+ *         required: true
+ *         type: string
+ *       - name: name
+ *         in: formData
+ *         type: string
+ *       - name: department
+ *         description: Particular Department Object's ID
+ *         in: formData
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: coc
+*/
 router.put('/:id', (req, res) => {
     CoC.findOneAndUpdate({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
@@ -63,6 +103,21 @@ router.put('/:id', (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /api/coc/{id}:
+ *  delete:
+ *    description: Use to delete a coc
+ *    parameters:
+ *       - name: id
+ *         description: Particular coc Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.delete('/:id', (req, res) => {
     CoC.deleteOne({ _id: req.params.id }, req.body).then((response)=>{
         res.json(response);
