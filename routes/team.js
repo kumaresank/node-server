@@ -45,6 +45,29 @@ router.get('/:id', (req, res) => {
 
 /**
  * @swagger
+ * /api/team/coc/{id}:
+ *  get:
+ *    description: Use to request team's
+ *    parameters:
+ *       - name: id
+ *         description: Particular coc Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get('/coc/:id', (req, res) => {
+    Team.find({  coc: req.params.id }).populate('coc').then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });    
+});
+
+/**
+ * @swagger
  * /api/team:
  *   post:
  *     produces:

@@ -45,6 +45,29 @@ router.get('/:id', (req, res) => {
 
 /**
  * @swagger
+ * /api/technology/category/{id}:
+ *  get:
+ *    description: Use to request a technology
+ *    parameters:
+ *       - name: id
+ *         description: Particular technology Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get('/category/:id', (req, res) => {
+    Technology.find({  category: req.params.id }).then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });    
+});
+
+/**
+ * @swagger
  * /api/technology:
  *   post:
  *     produces:

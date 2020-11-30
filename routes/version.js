@@ -45,6 +45,29 @@ router.get('/:id', (req, res) => {
 
 /**
  * @swagger
+ * /api/version/technology/{id}:
+ *  get:
+ *    description: Use to request version's
+ *    parameters:
+ *       - name: id
+ *         description: Particular Technology Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get('/technology/:id', (req, res) => {
+    Version.find({  technology: req.params.id }).populate('technology').then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });    
+});
+
+/**
+ * @swagger
  * /api/version:
  *   post:
  *     produces:

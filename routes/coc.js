@@ -45,6 +45,29 @@ router.get('/:id', (req, res) => {
 
 /**
  * @swagger
+ * /api/coc/department/{id}:
+ *  get:
+ *    description: Use to request coc's
+ *    parameters:
+ *       - name: id
+ *         description: Particular department Object's ID
+ *         in: path
+ *         required: true
+ *         type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get('/department/:id', (req, res) => {
+    CoC.find({  department: req.params.id }).populate('department').then((response)=>{
+        res.json(response);
+    }).catch((error)=>{
+        res.send(error);
+    });    
+});
+
+/**
+ * @swagger
  * /api/coc:
  *   post:
  *     produces:
