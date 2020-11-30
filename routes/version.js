@@ -73,7 +73,7 @@ router.get('/technology/:id', (req, res) => {
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: name
+ *       - name: versionNo
  *         in: formData
  *         required: true
  *         type: string
@@ -115,7 +115,7 @@ router.post('/', (req, res) => {
  *         in: path	 
  *         required: true
  *         type: string
- *       - name: name
+ *       - name: versionNo
  *         in: formData
  *         required: true
  *         type: string

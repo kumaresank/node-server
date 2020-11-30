@@ -49,8 +49,6 @@ router.get('/:id', (req, res) => {
  * definitions:
  *   Stack:
  *     properties:
- *       name:
- *         type: string
  *       technology:
  *         type: string
  *       version:

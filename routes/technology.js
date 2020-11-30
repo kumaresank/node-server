@@ -47,10 +47,10 @@ router.get('/:id', (req, res) => {
  * @swagger
  * /api/technology/category/{id}:
  *  get:
- *    description: Use to request a technology
+ *    description: Use to request technology's by Category
  *    parameters:
  *       - name: id
- *         description: Particular technology Object's ID
+ *         description: Particular category Object's ID
  *         in: path
  *         required: true
  *         type: string

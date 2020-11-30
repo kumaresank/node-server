@@ -9,7 +9,6 @@ const projectSchema = new Schema({
     startDate: String,
     team: { type: Schema.Types.ObjectId, ref: 'Teams' },
     techs: [StackTech]
-    // technologies: [{ type: Schema.Types.ObjectId, ref: 'StackTech' }]
 }, {
     timestamps: true
 });

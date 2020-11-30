@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const versionSchema = new Schema({
-    name: String,
+    versionNo: String,
     description: String,
     type: String,
     technology: { type: Schema.Types.ObjectId, ref: 'Technology' }
