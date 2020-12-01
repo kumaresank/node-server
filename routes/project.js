@@ -28,15 +28,6 @@ router.get('/', (req, res) => {
             }
         }
     )
-    // .populate(
-    //     { 
-    //         path: 'team.coc',
-    //         populate: {
-    //           path: 'department',
-    //           model: 'Departments'
-    //         }
-    //     }
-    // )
     .populate({path: 'techs.technology'})
     .populate({path: 'techs.version'})
     .then((response)=>{
@@ -62,7 +53,24 @@ router.get('/', (req, res) => {
  *        description: A successful response
  */
 router.get('/:id', (req, res) => {
-    Project.findOne({  _id: req.params.id }).populate('team').populate({path: 'techs.technology'}).populate({path: 'techs.version'}).then((response)=>{
+    Project.findOne({  _id: req.params.id })
+    .populate('team')
+    .populate(
+        { 
+            path: 'team',
+            populate: {
+              path: 'coc',
+              model: 'CoCs',
+              populate: {
+                path: 'department',
+                model: 'Departments'
+            }
+            }
+        }
+    )
+    .populate({path: 'techs.technology'})
+    .populate({path: 'techs.version'})
+    .then((response)=>{
         res.json(response);
     }).catch((error)=>{
         res.send(error);
