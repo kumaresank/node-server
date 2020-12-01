@@ -29,6 +29,13 @@ router.get('/', (req, res) => {
         }
     )
     .populate({path: 'techs.technology'})
+    .populate({
+        path: 'techs.technology',
+        populate: {
+            path: 'category',
+            model: 'Category'
+        }
+    })
     .populate({path: 'techs.version'})
     .then((response)=>{
        res.json(response);
@@ -69,6 +76,13 @@ router.get('/:id', (req, res) => {
         }
     )
     .populate({path: 'techs.technology'})
+    .populate({
+        path: 'techs.technology',
+        populate: {
+            path: 'category',
+            model: 'Category'
+        }
+    })
     .populate({path: 'techs.version'})
     .then((response)=>{
         res.json(response);
