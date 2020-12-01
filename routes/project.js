@@ -13,7 +13,8 @@ const Project = require('../models/Project');
  *        description: A successful response
  */
 router.get('/', (req, res) => {
-    Project.find({}).populate('techs').then((response)=>{
+    Project.find({}).populate({path: 'techs.technology'}).populate({path: 'techs.version'})
+    .then((response)=>{
        res.json(response);
     }).catch((error)=>{
         res.send(error);

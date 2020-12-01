@@ -13,6 +13,7 @@ const coc = require('./routes/coc');
 const team = require('./routes/team');
 const version = require('./routes/version');
 const projectTech = require('./routes/projectTech');
+const upload = require('./routes/upload');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,6 +61,7 @@ app.use('/api/coc', coc);
 app.use('/api/team', team);
 app.use('/api/version', version);
 app.use('/api/projectTech', projectTech);
+app.use('/api/upload', upload);
 
 app.use('/',(req,res)=>{
     res.send('ATP API Server is Up and Running...');
