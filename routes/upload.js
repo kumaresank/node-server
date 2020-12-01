@@ -16,15 +16,19 @@ const upload = multer({ dest: 'uploads/' });
  *     consumes:
  *       - multipart/form-data
  *     parameters:
- *       - name: plugin
+ *       - name: configFile
+ *         description: Upload the config file
  *         in: formData
- *         required: true
  *         type: file
+ *       - name: url
+ *         description: Remote URI of the config file
+ *         in: formData
+ *         type: string
  *     responses:
  *       200:
  *        description: A successful response
 */
-router.post('/', upload.single('plugin'), (req, res) => {
+router.post('/', upload.single('configFile'), (req, res) => {
     if(req.file) {
         const file = req.file;
         fs.readFile(file.path,'utf8',(err,data)=>{
@@ -58,6 +62,37 @@ router.post('/', upload.single('plugin'), (req, res) => {
                 }
             );
         });
+    } else if(req.body.url) {
+        request.get(req.body.url, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+            const jsonData = JSON.parse(body);
+            const dependencies = jsonData.dependencies;
+            const functionArray = Object.keys(dependencies).map((opt) => { 
+                return (callback) => getApi(opt, callback); 
+            });
+            let getApi = function (opt, callback) {
+                request(`https://api.npms.io/v2/package/${opt}`, (err, response, body) => {
+                    const rsp = JSON.parse(body);
+                    const custom = { 
+                            pkg:opt,
+                            licence: rsp.collected.metadata.license,
+                            link: rsp.collected.metadata.links.homepage,
+                            version:dependencies[opt]
+                    };
+                    callback(err, custom);
+                });
+            };
+            async.parallel(
+                functionArray, (err, results) => {
+                    if (err) {
+                        console.error('Error: ', err);
+                    } else {
+                        res.json(results);
+                    }
+                }
+            );
+        }
+});
     }
 });
 
