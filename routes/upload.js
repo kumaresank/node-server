@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const multer  = require('multer');
-const axios = require('axios');
 const async = require('async');
 const request = require('request');
 const upload = multer({ dest: 'uploads/' });
