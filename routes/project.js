@@ -111,6 +111,22 @@ router.get('/:id', (req, res) => {
  *         in: formData
  *         required: true
  *         type: string
+ *       - name: currentVersion
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: projectURI
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: lastReleaseDate
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: projectManager
+ *         in: formData
+ *         required: true
+ *         type: string
  *       - name: team
  *         description: Particular Team Object's ID
  *         in: formData
@@ -161,6 +177,22 @@ router.post('/', (req, res) => {
  *         type: string
  *       - name: startDate
  *         in: formData
+ *         type: string
+ *       - name: currentVersion
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: projectURI
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: lastReleaseDate
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: projectManager
+ *         in: formData
+ *         required: true
  *         type: string
  *       - name: team
  *         description: Particular Team Object's ID

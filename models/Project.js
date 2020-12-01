@@ -7,6 +7,10 @@ const projectSchema = new Schema({
     description: String,
     icon: String,
     startDate: String,
+    currentVersion: String,
+    projectURI: String,
+    lastReleaseDate: String,
+    projectManager: String,
     team: { type: Schema.Types.ObjectId, ref: 'Teams' },
     techs: [StackTech]
 }, {
