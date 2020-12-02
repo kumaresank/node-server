@@ -7,7 +7,7 @@
     "start": "node server"
   },
   "keywords": [],
-  "author": "Kumaresan Kanniyappan<kumaresan.kanniyappan@daimler.com>",
+  "author": "Kumaresan K<tkkumaresan@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",
